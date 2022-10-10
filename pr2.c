@@ -85,7 +85,6 @@ int main(void)
 
                 /* Read in a string from the pipe */
                 nbytes = read(fd[0], readbuffer, sizeof(readbuffer));
-                printf("%s: %s\n", filenames[i], readbuffer);
 
                 token = strtok(readbuffer, delim);
                 while(token != NULL)
