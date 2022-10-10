@@ -78,10 +78,7 @@ int main(void)
             else
             {
                 int k = 0;
-                
-                /* Wait for child process to finish*/
-                wait(NULL);
-                
+                              
                 /* Parent process closes up output side of pipe */
                 close(fd[1]);
 
@@ -100,9 +97,16 @@ int main(void)
                     token = strtok(NULL, delim);
                     k++;
                 }
-                printf("%f %f\n", all[i][0], all[i][1]);
             }
         }
 
+        /* Wait for child processes to finish */
+        for (int i = 0; i < 3; i++) {
+            pid_t pid = wait(NULL);
+        }
+
+        for (int i = 0; i < 3 ; i++) {
+            printf("%f %f\n", all[i][0], all[i][1]);
+        }
         return(0);
 }
