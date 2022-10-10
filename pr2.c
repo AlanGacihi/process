@@ -22,7 +22,6 @@ int main(int argc, char **argv)
         int fd[2], nbytes;
         pid_t childpid;
         char buffer[80];
-        char *filenames[] = {"dataset1", "dataset2", "dataset3"};
         char line[MAX_LINE_LENGTH];
         char readbuffer[80];
         char *token;
@@ -108,17 +107,17 @@ int main(int argc, char **argv)
                     k++;
                 }
 
-                printf("%s SUM=%f DIF=%f MIN=%f MAX=%f\n", argv[i], all[i][0] + all[i][1], all[i][0] - all[i][1], all[i][0], all[i][1]);
+                printf("%s SUM=%f DIF=%f MIN=%f MAX=%f\n", argv[i + 1], all[i][0] + all[i][1], all[i][0] - all[i][1], all[i][0], all[i][1]);
             }
         }
 
         /* Wait for child processes to finish */
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < argc; i++) {
             pid_t pid = wait(NULL);
         }
 
         /* Calculate overall maximum and minimum */
-        for (int i = 0; i < 3 ; i++) {
+        for (int i = 0; i < argc; i++) {
             if (i == 0) {
                 minimum = all[i][0];
                 maximum = all[i][1];
