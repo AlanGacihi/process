@@ -17,7 +17,7 @@ YorkU email address (the one that appears in eClass):
 
 #define MAX_LINE_LENGTH 10000
 
-int main(void)
+int main(int argc, char **argv)
 {
         int fd[2], nbytes;
         pid_t childpid;
