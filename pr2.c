@@ -19,12 +19,9 @@ int main(void)
         char readbuffer[80];
         char *token;
         float conv;
-        int i = 0;
+        float all[3][2];
         float min, max, maximum, minimum;
         const char delim[2] = " ";
-
-
-        //pipe(fd);
 
         for (int i = 0; i < 3; i++) {
 
@@ -38,6 +35,7 @@ int main(void)
 
             if(childpid == 0)
             {
+                int j = 0;
                 /* Open file */
                 FILE *file = fopen(filenames[i], "r");
 
@@ -50,7 +48,7 @@ int main(void)
                 while(token != NULL)
                 {
                     conv = atof(token);
-                    if (i == 0) {
+                    if (j == 0) {
                         max = conv;
                         min = conv;
                     }
@@ -59,9 +57,8 @@ int main(void)
                     if (conv > max)
                         max = conv;
                     token = strtok(NULL, delim);
-                    i++;
+                    j++;
                 }
-
 
                 /* Close file */
                 if (fclose(file))
@@ -74,20 +71,36 @@ int main(void)
                 close(fd[0]);
 
                 /* Send data to the main pipe */
-                sprintf(buffer, "%f %f %f %f\n", min + max, min - max, min, max);
-                //printf("%s", buffer);
+                sprintf(buffer, "%f %f %f %f", min + max, min - max, min, max);
                 write(fd[1], buffer, (strlen(buffer)+1));
                 exit(0);
             }
             else
             {
+                int k = 0;
+                
+                /* Wait for child process to finish*/
                 wait(NULL);
+                
                 /* Parent process closes up output side of pipe */
                 close(fd[1]);
 
                 /* Read in a string from the pipe */
                 nbytes = read(fd[0], readbuffer, sizeof(readbuffer));
-                printf("Received string: %s", readbuffer);
+                printf("Received string: %s\n", readbuffer);
+
+                token = strtok(readbuffer, delim);
+                while(token != NULL)
+                {
+                    conv = atof(token);
+                    if (k == 3)
+                        all[i][0] = conv;
+                    if (k == 4)
+                        all[i][1] = conv
+                    token = strtok(NULL, delim);
+                    k++;
+                }
+                printf("%f %f\n", all[i][0], all[i][1]);
             }
         }
 
