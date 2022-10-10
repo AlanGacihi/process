@@ -76,6 +76,7 @@ int main(int argc, char *argv[])
     for(t = 0; t < NUM_THREADS; t++) {
         taskids[t] = t;
         rc = pthread_create(&threads[t], NULL, readfile, (void *) taskids[t]);
+        pthread_join(threads[t], NULL);
         if (rc) {
             printf("ERROR; return code from pthread_create() is %d\n", rc);
             exit(-1);
