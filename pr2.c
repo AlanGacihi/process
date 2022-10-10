@@ -19,7 +19,7 @@ int main(void)
         char *token;
         float conv;
         int i = 0;
-        float min = 0.0, max, maximum, minimum;
+        float min, max, maximum, minimum;
         const char delim[2] = " ";
 
 
@@ -47,10 +47,12 @@ int main(void)
                 while(token != NULL)
                 {
                     conv = atof(token);
+                    if (i == 0) {
+                        max = conv;
+                        min = conv;
+                    }
                     if (conv < min)
                         min = conv;
-                    if (i == 0)
-                        max = conv;
                     if (conv > max)
                         max = conv;
                     token = strtok(NULL, delim);
@@ -70,7 +72,7 @@ int main(void)
 
                 /* Send data to the main pipe */
                 sprintf(buffer, "%f %f %f %f\n", min + max, min - min, min, max);
-                printf("%f\n", min);
+                printf("%f %f\n", min, max);
                 write(fd[1], buffer, (strlen(buffer)+1));
                 exit(0);
             }
