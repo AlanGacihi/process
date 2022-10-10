@@ -71,7 +71,7 @@ int main(void)
                 close(fd[0]);
 
                 /* Send data to the main pipe */
-                sprintf(buffer, "%f %f %f %f", min + max, min - max, min, max);
+                sprintf(buffer, "%s %f %f %f %f", filename[i], min + max, min - max, min, max);
                 write(fd[1], buffer, (strlen(buffer)+1));
                 exit(0);
             }
@@ -89,6 +89,8 @@ int main(void)
                 token = strtok(readbuffer, delim);
                 while(token != NULL)
                 {
+                    if (k == 0)
+                        continue;
                     conv = atof(token);
                     if (k == 2)
                         all[i][0] = conv;
@@ -105,8 +107,19 @@ int main(void)
             pid_t pid = wait(NULL);
         }
 
+        /* Calculate overall maximum and minimum */
         for (int i = 0; i < 3 ; i++) {
-            printf("%f %f\n", all[i][0], all[i][1]);
+            if (i == 0) {
+                minimum = all[i][0];
+                maximum = all[i][1];
+            }
+            if (all[i][0] < minimum)
+                minimum = all[i][0]
+            if (all[i][1] > maximum)
+                maximum = all[i][1];
         }
+
+        printf("MINIMUM=%f MAXIMUM=%f", minimum, maximum);
+        
         return(0);
 }
