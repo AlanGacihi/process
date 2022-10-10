@@ -43,6 +43,17 @@ void *readfile(void *threadid)
         j++;
     }
 
+    if (taskid == 0) {
+        MAXIMUM = max;
+        MINIMUM = min;
+    }
+
+    if (min < MINIMUM)
+        MINIMUM = min;
+
+    if (max > MAXIMUM)
+        MAXIMUM = max;
+
     /* Close file */
     if (fclose(file))
     {
@@ -64,13 +75,14 @@ int main(int argc, char *argv[])
     filenames = argv;
     for(t = 0; t < NUM_THREADS; t++) {
         taskids[t] = t;
-        printf("Creating thread %d\n", t);
         rc = pthread_create(&threads[t], NULL, readfile, (void *) taskids[t]);
         if (rc) {
             printf("ERROR; return code from pthread_create() is %d\n", rc);
             exit(-1);
         }
     }
+
+    printf("MINIMUM=%f MAXIMUM=%f\n", MINIMUM, MAXIMUM);
 
     pthread_exit(NULL);
 }
