@@ -18,7 +18,7 @@ int main(void)
         char readbuffer[80];
         char *token;
         int conv;
-        int MIN, MAX, MAXIMUM, MINIMUM;
+        int min, max, maximum, minimum;
         const char delim[2] = " ";
 
 
@@ -49,10 +49,10 @@ int main(void)
                 while(token != NULL)
                 {
                     conv = atoi(token);
-                    if (MIN < conv)
-                        MIN = conv;
-                    if (MAX > conv)
-                        MAX = conv;
+                    if (min < conv)
+                        min = conv;
+                    if (max > conv)
+                        max = conv;
                     token = strtok(NULL, delim);
                 }
 
@@ -68,7 +68,7 @@ int main(void)
                 close(fd[0]);
 
                 /* Send data to the main pipe */
-                sprintf(buffer, "%d %d %d %d %d\n", MIN + MAX, MIN - MAX, MIN, MAX);
+                sprintf(buffer, "%d %d %d %d\n", min + max, min - min, min, max);
                 write(fd[1], buffer, (strlen(buffer)+1));
                 exit(0);
             }
