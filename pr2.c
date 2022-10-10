@@ -1,3 +1,12 @@
+/*
+Family Name:
+Given Name(s):
+Student Number:
+EECS Login ID (the one you use to access the red server):
+YorkU email address (the one that appears in eClass):
+*/
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -12,7 +21,6 @@ int main(void)
 {
         int fd[2], nbytes;
         pid_t childpid;
-        char string[] = "Hello, world!\n";
         char buffer[80];
         char *filenames[] = {"dataset1", "dataset2", "dataset3"};
         char line[MAX_LINE_LENGTH];
@@ -23,7 +31,7 @@ int main(void)
         float min, max, maximum, minimum;
         const char delim[2] = " ";
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 1; i < argc; i++) {
 
             pipe(fd);
 
@@ -37,7 +45,7 @@ int main(void)
             {
                 int j = 0;
                 /* Open file */
-                FILE *file = fopen(filenames[i], "r");
+                FILE *file = fopen(argv[i], "r");
 
                 fgets(line, MAX_LINE_LENGTH, file);
 
@@ -100,7 +108,7 @@ int main(void)
                     k++;
                 }
 
-                printf("%s SUM=%f DIF=%f MIN=%f MAX=%f\n", filenames[i], all[i][0] + all[i][1], all[i][0] - all[i][1], all[i][0], all[i][1]);
+                printf("%s SUM=%f DIF=%f MIN=%f MAX=%f\n", argv[i], all[i][0] + all[i][1], all[i][0] - all[i][1], all[i][0], all[i][1]);
             }
         }
 
