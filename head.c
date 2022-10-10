@@ -2,15 +2,54 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define MAX_LINE_LENGTH 10000
+
 float MAXIMUM, MINIMUM;
 char **filenames;
 
 void *readfile(void *threadid)
 {
    long taskid;
+   char line[MAX_LINE_LENGTH];
+   char *token;
+   char delim[2] = " ";
+   float conv, max, min;
+   int j = 0;
 
    taskid = (long) threadid;
-   printf("File %s\n", filenames[taskid + 1]);
+
+   /* Open file */
+    FILE *file = fopen(filenames[taskid + 1], "r");
+
+    fgets(line, MAX_LINE_LENGTH, file);
+
+    /* Get first token */
+    token  = strtok(line, delim);
+
+    /* walk through other tokens */
+    while(token != NULL)
+    {
+        conv = atof(token);
+        if (j == 0) {
+            max = conv;
+            min = conv;
+        }
+        if (conv < min)
+            min = conv;
+        if (conv > max)
+            max = conv;
+        token = strtok(NULL, delim);
+        j++;
+    }
+
+    /* Close file */
+    if (fclose(file))
+    {
+        return EXIT_FAILURE;
+        perror(filenames[taskid + 1]);
+    }
+
+   printf("%s SUM=%f DIF=%f MIN=%f MAX=%f\n", filenames[taskid + 1], min + max, min - max, min, max);
    pthread_exit(NULL);
 }
 
