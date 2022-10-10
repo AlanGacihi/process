@@ -10,7 +10,7 @@ void *readfile(void *threadid)
    long taskid;
 
    taskid = (long) threadid;
-   printf("File %s\n", filenames[taskid]);
+   printf("File %s\n", filenames[taskid + 1]);
    pthread_exit(NULL);
 }
 
