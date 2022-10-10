@@ -13,7 +13,7 @@ int main(void)
         pid_t childpid;
         char string[] = "Hello, world!\n";
         char buffer[80];
-        char *filenames[] = {"dataset2", "dataset2", "dataset3"};
+        char *filenames[] = {"dataset4", "dataset2", "dataset3"};
         char line[MAX_LINE_LENGTH];
         char readbuffer[80];
         char *token;
