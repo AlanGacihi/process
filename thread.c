@@ -12,6 +12,7 @@ void *readfile(void *f) {
 
 int main(int argc, char **argv) 
 {
+    printf("Heelo\n");
     int NUM_THREADS = argc - 1;
     pthread_t threads[NUM_THREADS];
     int rc;
