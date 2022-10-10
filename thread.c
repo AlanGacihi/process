@@ -1,5 +1,4 @@
-#include <iostream>
-#include <cstdlib>
+#include <stdio.h>
 #include <pthread.h>
 
 
@@ -10,7 +9,8 @@ void *readfile(void *f) {
    pthread_exit(NULL);
 }
 
-int main () {
+int main(int argc, char **argv) 
+{
     int NUM_THREADS = argc - 1;
     pthread_t threads[NUM_THREADS];
     int rc;
