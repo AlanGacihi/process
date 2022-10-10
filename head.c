@@ -9,9 +9,8 @@ void *readfile(void *threadid)
 {
    long taskid;
 
-   sleep(1);
    taskid = (long) threadid;
-   printf("File %s\n", taskid, filenames[taskid]);
+   printf("File %s\n", filenames[taskid]);
    pthread_exit(NULL);
 }
 
