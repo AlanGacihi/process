@@ -31,7 +31,7 @@ int main(int argc, char **argv)
         float min, max, maximum, minimum;
         const char delim[2] = " ";
 
-        for (int i = 1; i < argc; i++) {
+        for (int i = 0; i < argc; i++) {
 
             pipe(fd);
 
@@ -45,7 +45,7 @@ int main(int argc, char **argv)
             {
                 int j = 0;
                 /* Open file */
-                FILE *file = fopen(argv[i], "r");
+                FILE *file = fopen(argv[i + 1], "r");
 
                 fgets(line, MAX_LINE_LENGTH, file);
 
@@ -72,7 +72,7 @@ int main(int argc, char **argv)
                 if (fclose(file))
                 {
                     return EXIT_FAILURE;
-                    perror(filenames[i]);
+                    perror(argv[i + ]);
                 }
 
                 /* Child process closes up input side of pipe */
