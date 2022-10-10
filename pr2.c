@@ -18,7 +18,8 @@ int main(void)
         char readbuffer[80];
         char *token;
         float conv;
-        float min, max, maximum, minimum;
+        int i = 0;
+        float min = 0.0, max, maximum, minimum;
         const char delim[2] = " ";
 
 
@@ -34,9 +35,6 @@ int main(void)
 
             if(childpid == 0)
             {
-                /* Read from file*/
-                printf("%s\n", filenames[i]);
-
                 /* Open file */
                 FILE *file = fopen(filenames[i], "r");
 
@@ -51,10 +49,12 @@ int main(void)
                     conv = atof(token);
                     if (min < conv)
                         min = conv;
+                    if (i == 0)
+                        max = conv;
                     if (max > conv)
                         max = conv;
                     token = strtok(NULL, delim);
-                    printf("%f\n", conv);
+                    i++;
                 }
 
 
