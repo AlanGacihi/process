@@ -71,7 +71,7 @@ int main(int argc, char **argv)
                 if (fclose(file))
                 {
                     return EXIT_FAILURE;
-                    perror(argv[i + ]);
+                    perror(argv[i + 1]);
                 }
 
                 /* Child process closes up input side of pipe */
