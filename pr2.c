@@ -13,7 +13,7 @@ int main(void)
         pid_t childpid;
         char string[] = "Hello, world!\n";
         char buffer[80];
-        char *filenames[] = {"dataset4", "dataset2", "dataset3"};
+        char *filenames[] = {"dataset1", "dataset2", "dataset3"};
         char line[MAX_LINE_LENGTH];
         char readbuffer[80];
         char *token;
@@ -25,7 +25,7 @@ int main(void)
 
         pipe(fd);
 
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 3; i++) {
 
             if((childpid = fork()) == -1)
             {
@@ -71,8 +71,7 @@ int main(void)
                 close(fd[0]);
 
                 /* Send data to the main pipe */
-                sprintf(buffer, "%f %f %f %f\n", min + max, min - min, min, max);
-                printf("%f %f\n", min, max);
+                sprintf(buffer, "%f %f %f %f\n", min + max, min - max, min, max);
                 write(fd[1], buffer, (strlen(buffer)+1));
                 exit(0);
             }
