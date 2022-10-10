@@ -1,10 +1,9 @@
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
-#define NUM_THREADS	8
 
 float MAXIMUM, MINIMUM;
-char *filenames[];
+char **filenames;
 
 void *readfile(void *threadid)
 {
@@ -18,11 +17,12 @@ void *readfile(void *threadid)
 
 int main(int argc, char *argv[])
 {
-    int NUMTHREADS = argc -1;
+    int NUM_THREADS = argc -1;
     pthread_t threads[NUM_THREADS];
     long taskids[NUM_THREADS];
     int rc, t;
 
+    filenames = argv;
     for(t = 0; t < NUM_THREADS; t++) {
         taskids[t] = t;
         printf("Creating thread %d\n", t);
