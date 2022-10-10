@@ -30,7 +30,7 @@ int main(int argc, char **argv)
         float min, max, maximum, minimum;
         const char delim[2] = " ";
 
-        for (int i = 0; i < argc; i++) {
+        for (int i = 0; i < argc && argv[i + 1] != NULL; i++) {
 
             pipe(fd);
 
