@@ -71,7 +71,7 @@ int main(void)
                 close(fd[0]);
 
                 /* Send data to the main pipe */
-                sprintf(buffer, "%s %f %f %f %f", filenames[i], min + max, min - max, min, max);
+                sprintf(buffer, "%f %f %f %f", min + max, min - max, min, max);
                 write(fd[1], buffer, (strlen(buffer)+1));
                 exit(0);
             }
@@ -89,8 +89,6 @@ int main(void)
                 token = strtok(readbuffer, delim);
                 while(token != NULL)
                 {
-                    if (k == 0)
-                        continue;
                     conv = atof(token);
                     if (k == 2)
                         all[i][0] = conv;
