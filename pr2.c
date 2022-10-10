@@ -47,12 +47,12 @@ int main(void)
                 while(token != NULL)
                 {
                     conv = atof(token);
-                    if (min < conv)
+                    if (conv < min)
                         min = conv;
-                    /*if (i == 0)
+                    if (i == 0)
                         max = conv;
-                    if (max > conv)
-                        max = conv;*/
+                    if (conv > max)
+                        max = conv;
                     token = strtok(NULL, delim);
                     i++;
                 }
@@ -70,7 +70,7 @@ int main(void)
 
                 /* Send data to the main pipe */
                 sprintf(buffer, "%f %f %f %f\n", min + max, min - min, min, max);
-                printf("%f\n", min);
+                printf("%s\n", buffer);
                 write(fd[1], buffer, (strlen(buffer)+1));
                 exit(0);
             }
