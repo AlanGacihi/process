@@ -72,6 +72,7 @@ int main(void)
 
                 /* Send data to the main pipe */
                 sprintf(buffer, "%f %f %f %f\n", min + max, min - max, min, max);
+                printf("%s", buffer);
                 write(fd[1], buffer, (strlen(buffer)+1));
                 exit(0);
             }
