@@ -45,8 +45,8 @@ void *readfile(void *threadid)
     /* Close file */
     if (fclose(file))
     {
-        return EXIT_FAILURE;
         perror(filenames[taskid + 1]);
+        exit(EXIT_FAILURE);
     }
 
    printf("%s SUM=%f DIF=%f MIN=%f MAX=%f\n", filenames[taskid + 1], min + max, min - max, min, max);
