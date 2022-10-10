@@ -71,7 +71,7 @@ int main(void)
                 close(fd[0]);
 
                 /* Send data to the main pipe */
-                sprintf(buffer, "%s %f %f %f %f", filename[i], min + max, min - max, min, max);
+                sprintf(buffer, "%s %f %f %f %f", filenames[i], min + max, min - max, min, max);
                 write(fd[1], buffer, (strlen(buffer)+1));
                 exit(0);
             }
@@ -114,7 +114,7 @@ int main(void)
                 maximum = all[i][1];
             }
             if (all[i][0] < minimum)
-                minimum = all[i][0]
+                minimum = all[i][0];
             if (all[i][1] > maximum)
                 maximum = all[i][1];
         }
