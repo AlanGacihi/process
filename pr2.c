@@ -93,9 +93,9 @@ int main(void)
                 while(token != NULL)
                 {
                     conv = atof(token);
-                    if (k == 3)
+                    if (k == 2)
                         all[i][0] = conv;
-                    if (k == 4)
+                    if (k == 3)
                         all[i][1] = conv;
                     token = strtok(NULL, delim);
                     k++;
