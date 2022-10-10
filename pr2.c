@@ -84,7 +84,7 @@ int main(void)
 
                 /* Read in a string from the pipe */
                 nbytes = read(fd[0], readbuffer, sizeof(readbuffer));
-                printf("Received string: %s\n", readbuffer);
+                printf("%s: %s\n", filenames[i], readbuffer);
 
                 token = strtok(readbuffer, delim);
                 while(token != NULL)
@@ -117,7 +117,7 @@ int main(void)
                 maximum = all[i][1];
         }
 
-        printf("MINIMUM=%f MAXIMUM=%f", minimum, maximum);
+        printf("MINIMUM=%f MAXIMUM=%f\n", minimum, maximum);
         
         return(0);
 }
