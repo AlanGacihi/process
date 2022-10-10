@@ -78,6 +78,7 @@ int main(void)
             else
             {
                 int k = 0;
+                float m, n;
                               
                 /* Parent process closes up output side of pipe */
                 close(fd[1]);
@@ -92,11 +93,15 @@ int main(void)
                     conv = atof(token);
                     if (k == 2)
                         all[i][0] = conv;
+                        m = conv;
                     if (k == 3)
                         all[i][1] = conv;
+                        n = conv;
                     token = strtok(NULL, delim);
                     k++;
                 }
+
+                printf("%s SUM=%f DIF=%f MIN=%f MAX=%f\n", filenames[i], m + n, m - n, m, n);
             }
         }
 
