@@ -49,10 +49,10 @@ int main(void)
                     conv = atof(token);
                     if (min < conv)
                         min = conv;
-                    if (i == 0)
+                    /*if (i == 0)
                         max = conv;
                     if (max > conv)
-                        max = conv;
+                        max = conv;*/
                     token = strtok(NULL, delim);
                     i++;
                 }
@@ -70,7 +70,7 @@ int main(void)
 
                 /* Send data to the main pipe */
                 sprintf(buffer, "%f %f %f %f\n", min + max, min - min, min, max);
-                printf("%s\n", buffer);
+                printf("%f\n", min);
                 write(fd[1], buffer, (strlen(buffer)+1));
                 exit(0);
             }
