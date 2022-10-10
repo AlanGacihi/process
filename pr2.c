@@ -101,7 +101,7 @@ int main(void)
                     k++;
                 }
 
-                printf("%s SUM=%f DIF=%f MIN=%f MAX=%f\n", filenames[i], m + n, m - n, m, n);
+                printf("%s SUM=%f DIF=%f MIN=%f MAX=%f\n", filenames[i], all[i][0] + all[i][1], all[i][0] - all[i][1], all[i][0], all[i][1]);
             }
         }
 
