@@ -96,7 +96,7 @@ int main(void)
                     if (k == 3)
                         all[i][0] = conv;
                     if (k == 4)
-                        all[i][1] = conv
+                        all[i][1] = conv;
                     token = strtok(NULL, delim);
                     k++;
                 }
