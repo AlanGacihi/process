@@ -3,13 +3,24 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/types.h>
+#include <string.h>
+
+#define MAX_LINE_LENGTH 10000
 
 int main(void)
 {
-        int     fd[2], nbytes;
-        pid_t   childpid;
-        char    string[] = "Hello, world!\n";
-        char    readbuffer[80];
+        int fd[2], nbytes;
+        pid_t childpid;
+        char string[] = "Hello, world!\n";
+        char buffer[80];
+        char *filenames[] = {"dataset1", "dataset2", "dataset3"};
+        char line[MAX_LINE_LENGTH];
+        char readbuffer[80];
+        char *token;
+        int conv;
+        int MIN, MAX, MAXIMUM, MINIMUM;
+        const char delim[2] = " ";
+
 
         pipe(fd);
 
@@ -23,11 +34,42 @@ int main(void)
 
             if(childpid == 0)
             {
+                /* Read from file*/
+                //printf("%s\n", filenames[i]);
+
+                /* Open file */
+                FILE *file = fopen(filenames[i], "r");
+
+                fgets(line, MAX_LINE_LENGTH, file);
+
+                /* Get first token */
+                token  = strtok(line, delim);
+
+                /* walk through other tokens */
+                while(token != NULL)
+                {
+                    conv = atoi(token);
+                    if (MIN < conv)
+                        MIN = conv;
+                    if (MAX > conv)
+                        MAX = conv;
+                    token = strtok(NULL, delim);
+                }
+
+
+                /* Close file */
+                if (fclose(file))
+                {
+                    return EXIT_FAILURE;
+                    perror(filenames[i]);
+                }
+
                 /* Child process closes up input side of pipe */
                 close(fd[0]);
 
-                /* Send "string" through the output side of pipe */
-                write(fd[1], string, (strlen(string)+1));
+                /* Send data to the main pipe */
+                sprintf(buffer, "%d %d %d %d %d\n", MIN + MAX, MIN - MAX, MIN, MAX);
+                write(fd[1], buffer, (strlen(buffer)+1));
                 exit(0);
             }
             else
