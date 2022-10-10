@@ -19,6 +19,7 @@ int main(int argc, char **argv)
     char *filenames[] = {"dataset1", "dataset2", "dataset3"};
 
     for( i = 0; i < NUM_THREADS; i++ ) {
+        printf("%d\n", i);
         rc = pthread_create(&threads[i], NULL, readfile, (void *)filenames[i]);
         if (rc) {
             printf("Error:unable to create thread, %d\n", rc);
