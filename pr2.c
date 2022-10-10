@@ -51,8 +51,8 @@ int main(void)
                         max = conv;
                         min = conv;
                     }
-                    if (conv < min)
-                        min = conv;
+                    /*if (conv < min)
+                        min = conv;*/
                     if (conv > max)
                         max = conv;
                     token = strtok(NULL, delim);
