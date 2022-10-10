@@ -24,9 +24,11 @@ int main(void)
         const char delim[2] = " ";
 
 
-        pipe(fd);
+        //pipe(fd);
 
         for (int i = 0; i < 3; i++) {
+
+            pipe(fd);
 
             if((childpid = fork()) == -1)
             {
