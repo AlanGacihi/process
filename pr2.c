@@ -17,14 +17,14 @@ int main(void)
         char line[MAX_LINE_LENGTH];
         char readbuffer[80];
         char *token;
-        int conv;
-        int min, max, maximum, minimum;
+        float conv;
+        float min, max, maximum, minimum;
         const char delim[2] = " ";
 
 
         pipe(fd);
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 1; i++) {
 
             if((childpid = fork()) == -1)
             {
@@ -35,7 +35,7 @@ int main(void)
             if(childpid == 0)
             {
                 /* Read from file*/
-                //printf("%s\n", filenames[i]);
+                printf("%s\n", filenames[i]);
 
                 /* Open file */
                 FILE *file = fopen(filenames[i], "r");
@@ -48,12 +48,13 @@ int main(void)
                 /* walk through other tokens */
                 while(token != NULL)
                 {
-                    conv = atoi(token);
+                    conv = atof(token);
                     if (min < conv)
                         min = conv;
                     if (max > conv)
                         max = conv;
                     token = strtok(NULL, delim);
+                    printf("%f\n", conv);
                 }
 
 
@@ -68,7 +69,7 @@ int main(void)
                 close(fd[0]);
 
                 /* Send data to the main pipe */
-                sprintf(buffer, "%d %d %d %d\n", min + max, min - min, min, max);
+                sprintf(buffer, "%f %f %f %f\n", min + max, min - min, min, max);
                 write(fd[1], buffer, (strlen(buffer)+1));
                 exit(0);
             }
